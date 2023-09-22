@@ -20,7 +20,7 @@ public interface Dao {
 
     public void crearConvocatoria(ConvocatoriaExamen CE);
 
-    public void crearEnunciado();
+    public void crearEnunciado(Enunciado EN);
 
     public Enunciado consultarEnunciado(String idEnunciado);
 

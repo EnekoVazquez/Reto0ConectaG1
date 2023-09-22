@@ -30,11 +30,13 @@ public class DaoImplementacionDb implements Dao {
     // Convocatoria
    // private final String ALTACE = "INSERT INTO ConvocatoriaExamen(convocatoria,descripcion,fecha,curso) values (?,?,?,?)";
 
+    //Enunciado
+    private final String ALTAENUN = "INSERT INTO enunciado(id, descripcion, nivel, disponible,ruta) values (?,?,?,?,?)";
     private void openConnection() {
 
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://127.0.0.1:3306/examendb?serverTimezone=Europe/Madrid&useSSL=false", "root",
+                    "jdbc:mysql://127.0.0.1:3306/examenbd?serverTimezone=Europe/Madrid&useSSL=false", "root",
                     "abcd*1234");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -116,8 +118,30 @@ public class DaoImplementacionDb implements Dao {
     }
 
     @Override
-    public void crearEnunciado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void crearEnunciado(Enunciado EN) {
+            this.openConnection();
+
+        try {
+
+            stmt = con.prepareStatement(ALTAENUN);
+            stmt.setInt(1, EN.getIdEnunciado());
+            stmt.setString(2, EN.getDescipcion());
+            stmt.setString(3, EN.getDificultad().toString());
+            stmt.setBoolean(4, EN.isDisponible());
+            stmt.setString(5, EN.getRuta());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        try {
+            closeConnection();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override

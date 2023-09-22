@@ -60,7 +60,7 @@ public class DaoImplementacionFichero implements Dao {
     }
 
     @Override
-    public void crearEnunciado() {
+    public void crearEnunciado(Enunciado EN) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 //vacias

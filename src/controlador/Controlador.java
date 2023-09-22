@@ -6,6 +6,7 @@
 package controlador;
 
 import clases.ConvocatoriaExamen;
+import clases.Enunciado;
 import clases.UnidadDidactica;
 import modelo.*;
 
@@ -26,8 +27,8 @@ public class Controlador {
         daoFich.crearConvocatoria(CE);
     }
 
-    public void crearEnunciado() {
-
+    public void crearEnunciado(Enunciado EN) {
+        daoBD.crearEnunciado(EN);
     }
 
     public void consultarUnidadDidactica() {

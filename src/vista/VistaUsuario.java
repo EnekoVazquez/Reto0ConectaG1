@@ -6,6 +6,8 @@
 package vista;
 
 import clases.ConvocatoriaExamen;
+import clases.Dificultad;
+import clases.Enunciado;
 import controlador.Controlador;
 import modelo.Dao;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +23,7 @@ public class VistaUsuario {
 
     private UnidadDidactica UD;
     private ConvocatoriaExamen CE;
+    private Enunciado EN;
 
     public static void menu(Controlador controlador) {
         int opc;
@@ -90,7 +93,24 @@ public class VistaUsuario {
     }
 
     private static void crearEnunciado(Controlador controlador) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        Enunciado EN = new Enunciado();
+        String dificultad;
+        EN.setIdEnunciado(Utilidades.leerInt("Dime la id del enunciado"));
+        EN.setDescipcion(Utilidades.introducirCadena("Dime la descripcion"));
+
+        dificultad = Utilidades.introducirCadena("Introduce la dificultad del enunciado ALTA,BAJA,MEDIA");
+        if (dificultad.equalsIgnoreCase(Dificultad.ALTA.toString())) {
+            EN.setDificultad(Dificultad.ALTA);
+        } else if (dificultad.equalsIgnoreCase(Dificultad.MEDIA.toString())) {
+            EN.setDificultad(Dificultad.MEDIA);
+        } else {
+            EN.setDificultad(Dificultad.BAJA);
+        }
+        EN.setDisponible(Utilidades.leerRespuesta("Esta disponible?"));
+        EN.setRuta(Utilidades.introducirCadena("Donde quieres guardar el enunciado"));
+
+        controlador.crearEnunciado(EN);
     }
 
     private static void consultarUnidadDidactica(Controlador controlador) {
@@ -103,8 +123,8 @@ public class VistaUsuario {
 
     private static void consultarConvocatoria(Controlador controlador) {
         String idConvocatoria;
-        idConvocatoria=Utilidades.introducirCadena("Dime la convocatoria que quieres consultar");
-        
+        idConvocatoria = Utilidades.introducirCadena("Dime la convocatoria que quieres consultar");
+
         controlador.consultarConvocatoria(idConvocatoria);
     }
 
