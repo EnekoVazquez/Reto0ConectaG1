@@ -66,7 +66,7 @@ public class DaoImplementacionFichero implements Dao {
 //vacias
 
     @Override
-    public Enunciado consultarEnunciado(String idEnunciado) {
+    public Enunciado consultarEnunciado(int consul1) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -119,7 +119,7 @@ public class DaoImplementacionFichero implements Dao {
     }
 
     @Override
-    public UnidadDidactica consultarUnidadDidactica(String idUnidadDidactica) {
+    public UnidadDidactica consultarUnidadDidactica(int consul) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

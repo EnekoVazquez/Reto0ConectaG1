@@ -36,12 +36,12 @@ public class UnidadDidactica {
         this.idUnidadDidactica = idUnidadDidactica;
     }
 
-    public String getAnonimo() {
+    public String getAcronimo() {
         return acronimo;
     }
 
-    public void setAnonimo(String anonimo) {
-        this.acronimo = anonimo;
+    public void setAcronimo(String acronimo) {
+        this.acronimo = acronimo;
     }
 
     public String getTitulo() {

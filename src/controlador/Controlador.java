@@ -19,8 +19,9 @@ public class Controlador {
     private Dao daoBD = Factoria.getImplementacionBD();
     private Dao daoFich = Factoria.getImplementacionFich();
 
-    public void crearUnidadDidactica(UnidadDidactica UD) {
+    public UnidadDidactica crearUnidadDidactica(UnidadDidactica UD) {
         daoBD.crearUnidadDidactica(UD);
+        return UD;
     }
 
     public void crearConvocatoria(ConvocatoriaExamen CE) {
@@ -31,12 +32,12 @@ public class Controlador {
         daoBD.crearEnunciado(EN);
     }
 
-    public void consultarUnidadDidactica() {
-
+    public void consultarUnidadDidactica(int consul ) {
+        daoBD.consultarUnidadDidactica(consul);
     }
 
-    public void consultarEnunciado() {
-
+    public void consultarEnunciado(int consul1) {
+        daoBD.consultarEnunciado(consul1);
     }
 
     public void consultarConvocatoria(String idConvocatoria) {
@@ -46,5 +47,7 @@ public class Controlador {
     public void visualizarEnunciado() {
 
     }
+
+    
 
 }

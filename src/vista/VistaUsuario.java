@@ -75,7 +75,7 @@ public class VistaUsuario {
         //pasamos lo que ha escrito para hacer el alta
         UnidadDidactica UD = new UnidadDidactica();
         UD.setIdUnidadDidactica(Utilidades.leerInt("Dime la id de la unidad didactica"));
-        UD.setAnonimo(Utilidades.introducirCadena("Dime el acronimo"));
+        UD.setAcronimo(Utilidades.introducirCadena("Dime el acronimo"));
         UD.setTitulo(Utilidades.introducirCadena("Dime el titulo"));
         UD.setEvaluacion(Utilidades.introducirCadena("Dime la evaluacion"));
         UD.setDescripcion(Utilidades.introducirCadena("Dime la descripcion"));
@@ -93,7 +93,9 @@ public class VistaUsuario {
     }
 
     private static void crearEnunciado(Controlador controlador) {
-
+        String opc = " ";
+        int unidad = 0;
+        UnidadDidactica ud;
         Enunciado EN = new Enunciado();
         String dificultad;
         EN.setIdEnunciado(Utilidades.leerInt("Dime la id del enunciado"));
@@ -110,21 +112,38 @@ public class VistaUsuario {
         EN.setDisponible(Utilidades.leerRespuesta("Esta disponible?"));
         EN.setRuta(Utilidades.introducirCadena("Donde quieres guardar el enunciado"));
 
+        do {
+            ud = new UnidadDidactica();
+            ud.setIdUnidadDidactica(Utilidades.leerInt("Introduce el ID de la Unidad Didáctica"));
+
+            // Comprobar que UD existe
+   //         ud = controlador.consultarUnidadDidactica(ud.getIdUnidadDidactica());
+            if (ud != null) {
+                EN.getUnidades().add(ud);
+            }
+
+            opc = Utilidades.introducirCadena("¿Quieres seguir introduciendo? (si/no)");
+        } while (!opc.equalsIgnoreCase("si"));
+
+        //Tratamiento Convocatoria
         controlador.crearEnunciado(EN);
     }
 
     private static void consultarUnidadDidactica(Controlador controlador) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int consul;
+        consul = Utilidades.leerInt("introduce el numero de la unidad didactica que quieres consultar ");
+        controlador.consultarUnidadDidactica(consul);
     }
 
     private static void consultarEnunciado(Controlador controlador) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int consul1;
+        consul1 = Utilidades.leerInt("introduce el numero del enunciado que quieres consultar ");
+        controlador.consultarEnunciado(consul1);
     }
 
     private static void consultarConvocatoria(Controlador controlador) {
         String idConvocatoria;
         idConvocatoria = Utilidades.introducirCadena("Dime la convocatoria que quieres consultar");
-
         controlador.consultarConvocatoria(idConvocatoria);
     }
 

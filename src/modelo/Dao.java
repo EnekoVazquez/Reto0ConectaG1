@@ -22,10 +22,10 @@ public interface Dao {
 
     public void crearEnunciado(Enunciado EN);
 
-    public Enunciado consultarEnunciado(String idEnunciado);
+    public Enunciado consultarEnunciado(int consul1);
 
     public void consultarConvocatoria(String idConvocatoria);
 
-    public UnidadDidactica consultarUnidadDidactica(String idUnidadDidactica);
+    public UnidadDidactica consultarUnidadDidactica(int consul);
 
 }
