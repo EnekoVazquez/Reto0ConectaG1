@@ -6,11 +6,14 @@
 package vista;
 
 import clases.ConvocatoriaExamen;
+import clases.Dificultad;
+import clases.Enunciado;
 import controlador.Controlador;
 import modelo.Dao;
 import java.time.format.DateTimeFormatter;
 import clases.UnidadDidactica;
 import java.time.LocalDate;
+import modelo.DaoImplementacionDb;
 import utilidades.Utilidades;
 
 /**
@@ -67,44 +70,73 @@ public class VistaUsuario {
     }
 
     private static void crearUnidadDidactica(Controlador controlador) {
-
         // TODO Auto-generated method stub
         //pasamos lo que ha escrito para hacer el alta
-        UnidadDidactica UD = new UnidadDidactica();
-        UD.setIdUnidadDidactica(Utilidades.leerInt("Dime la id de la unidad didactica"));
-        UD.setAnonimo(Utilidades.introducirCadena("Dime el acronimo"));
-        UD.setTitulo(Utilidades.introducirCadena("Dime el titulo"));
-        UD.setEvaluacion(Utilidades.introducirCadena("Dime la evaluacion"));
-        UD.setDescripcion(Utilidades.introducirCadena("Dime la descripcion"));
-        controlador.crearUnidadDidactica(UD);
+        int idUnidadDidactica = Utilidades.leerInt("Dime la id de la unidad didactica que no exista");
+        // Verificar si la unidad didáctica ya existe en la base de datos.
+        if (controlador.verificarExistenciaUnidadDidactica(idUnidadDidactica)) {
+            System.out.println("La unidad didáctica con esta ID ya existe en la base de datos.");
+        } else {
+            UnidadDidactica UD = new UnidadDidactica();
+            UD.setIdUnidadDidactica(Utilidades.leerInt("Dime la id de la unidad didactica"));
+            UD.setAnonimo(Utilidades.introducirCadena("Dime el acronimo"));
+            UD.setTitulo(Utilidades.introducirCadena("Dime el titulo"));
+            UD.setEvaluacion(Utilidades.introducirCadena("Dime la evaluacion"));
+            UD.setDescripcion(Utilidades.introducirCadena("Dime la descripcion"));
+            controlador.crearUnidadDidactica(UD);
+        }
 
     }
 
     private static void crearConvocatoria(Controlador controlador) {
-        ConvocatoriaExamen CE = new ConvocatoriaExamen();
-        CE.setConvocatoria(Utilidades.introducirCadena("Introduce la convocatoria del examen "));
-        CE.setDescripcion(Utilidades.introducirCadena("Dime la descripcion"));
-        CE.setCurso(Utilidades.introducirCadena("Dime el curso"));
-        CE.setFecha(Utilidades.pidoFechaDMA("Dime la fecha de la convocatoria"));
-        controlador.crearConvocatoria(CE);
+        String convocatoria = Utilidades.introducirCadena("Dime la convocatoria que no exista");
+
+        if (controlador.verificarExistenciaConvocatoria(convocatoria)) {
+            System.out.println("La convocatoria ya existe en la base de datos.");
+        } else {
+
+            ConvocatoriaExamen CE = new ConvocatoriaExamen();
+            CE.setConvocatoria(Utilidades.introducirCadena("Introduce la convocatoria del examen "));
+            CE.setDescripcion(Utilidades.introducirCadena("Dime la descripcion"));
+            CE.setCurso(Utilidades.introducirCadena("Dime el curso"));
+            CE.setFecha(Utilidades.pidoFechaDMA("Dime la fecha de la convocatoria"));
+            controlador.crearConvocatoria(CE);
+        }
     }
 
     private static void crearEnunciado(Controlador controlador) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
+        Enunciado EN = new Enunciado();
+        String dificultad;
+        EN.setIdEnunciado(Utilidades.leerInt("Dime la id del enunciado"));
+        EN.setDescipcion(Utilidades.introducirCadena("Dime la descripcion"));
+
+        dificultad = Utilidades.introducirCadena("Introduce la dificultad del enunciado ALTA,BAJA,MEDIA");
+        if (dificultad.equalsIgnoreCase(Dificultad.ALTA.toString())) {
+            EN.setDificultad(Dificultad.ALTA);
+        } else if (dificultad.equalsIgnoreCase(Dificultad.MEDIA.toString())) {
+            EN.setDificultad(Dificultad.MEDIA);
+        } else {
+            EN.setDificultad(Dificultad.BAJA);
+        }
+        EN.setDisponible(Utilidades.leerRespuesta("Esta disponible?"));
+        EN.setRuta(Utilidades.introducirCadena("Donde quieres guardar el enunciado"));
+        EN.insertarUnidades();
+
+        controlador.crearEnunciado(EN);
+    }
     private static void consultarUnidadDidactica(Controlador controlador) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private static void consultarEnunciado(Controlador controlador) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     private static void consultarConvocatoria(Controlador controlador) {
         String idConvocatoria;
-        idConvocatoria=Utilidades.introducirCadena("Dime la convocatoria que quieres consultar");
-        
+        idConvocatoria = Utilidades.introducirCadena("Dime la convocatoria que quieres consultar");
+
         controlador.consultarConvocatoria(idConvocatoria);
     }
 

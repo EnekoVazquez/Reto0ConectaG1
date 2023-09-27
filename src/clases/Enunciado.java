@@ -5,6 +5,9 @@
  */
 package clases;
 
+import java.util.ArrayList;
+import utilidades.Utilidades;
+
 /**
  *
  * @author 2dam
@@ -16,6 +19,8 @@ public class Enunciado {
     private Dificultad dificultad;
     private boolean disponible;
     private String ruta;
+    private ArrayList<UnidadDidactica> unidades;
+
 
     public Enunciado() {
     }
@@ -26,6 +31,7 @@ public class Enunciado {
         this.dificultad = dificultad;
         this.disponible = disponible;
         this.ruta = ruta;
+        unidades = new ArrayList<UnidadDidactica>();
     }
 
     public int getIdEnunciado() {
@@ -70,8 +76,22 @@ public class Enunciado {
 
     @Override
     public String toString() {
-        return "Enunciado{" + "id=" + idEnunciado + ", descipcion=" + descipcion + ", dificultad=" + dificultad + ", disponible=" + disponible + ", ruta=" + ruta + '}';
+        return "Enunciado{" + "idEnunciado=" + idEnunciado + ", descipcion=" + descipcion + ", dificultad=" + dificultad + ", disponible=" + disponible + ", ruta=" + ruta + ", unidades=" + unidades + '}';
     }
+
+    
+    public void insertarUnidades(){
+        String respuesta;
+        
+        do {
+            UnidadDidactica UD = new UnidadDidactica();
+            UD.setDatos();
+            unidades.add(UD);
+            
+            respuesta = Utilidades.introducirCadena("Quieres seguir introduciendo?");
+        } while (respuesta.equalsIgnoreCase("S"));
+    }
+    
     
     
     

@@ -6,8 +6,10 @@
 package controlador;
 
 import clases.ConvocatoriaExamen;
+import clases.Enunciado;
 import clases.UnidadDidactica;
 import modelo.*;
+import utilidades.Utilidades;
 
 /**
  *
@@ -25,11 +27,6 @@ public class Controlador {
     public void crearConvocatoria(ConvocatoriaExamen CE) {
         daoFich.crearConvocatoria(CE);
     }
-
-    public void crearEnunciado() {
-
-    }
-
     public void consultarUnidadDidactica() {
 
     }
@@ -44,6 +41,20 @@ public class Controlador {
 
     public void visualizarEnunciado() {
 
+    }
+    public boolean verificarExistenciaUnidadDidactica(int idUnidadDidactica){
+        
+       return daoBD.verificarExistenciaUnidadDidactica(idUnidadDidactica);
+    
+    }
+     public boolean verificarExistenciaConvocatoria(String convocatoria){
+        
+       return daoFich.verificarExistenciaConvocatoria(convocatoria);
+    
+    }
+
+    public void crearEnunciado(Enunciado EN) {
+       daoBD.crearEnunciado(EN);
     }
 
 }

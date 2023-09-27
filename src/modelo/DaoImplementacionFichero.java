@@ -60,7 +60,7 @@ public class DaoImplementacionFichero implements Dao {
     }
 
     @Override
-    public void crearEnunciado() {
+    public void crearEnunciado(Enunciado EN) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 //vacias
@@ -122,5 +122,42 @@ public class DaoImplementacionFichero implements Dao {
     public UnidadDidactica consultarUnidadDidactica(String idUnidadDidactica) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public boolean verificarExistenciaUnidadDidactica(int idUnidadDidactica) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean verificarExistenciaConvocatoria(String convocatoria) {
+        boolean existe = false;
+        ConvocatoriaExamen conv;
+        ObjectInputStream ois = null;
+        int comprobar = Utilidades.calculoFichero(fich);
+        try {
+            ois = new ObjectInputStream(new FileInputStream(fich));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DaoImplementacionFichero.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DaoImplementacionFichero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for(int i = 0; i < comprobar;i++){
+            try {
+                conv = (ConvocatoriaExamen) ois.readObject();
+                if(convocatoria.equalsIgnoreCase(conv.getConvocatoria())){
+                    existe = true;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(DaoImplementacionFichero.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DaoImplementacionFichero.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return existe;
+                
+    }
+
+    
 
 }

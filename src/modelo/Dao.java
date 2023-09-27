@@ -15,17 +15,20 @@ import clases.UnidadDidactica;
  */
 public interface Dao {
 
-    //aqui van los metodos que son los de la clase de usos
     public void crearUnidadDidactica(UnidadDidactica UD);
 
     public void crearConvocatoria(ConvocatoriaExamen CE);
 
-    public void crearEnunciado();
+    public void crearEnunciado(Enunciado EN);
 
     public Enunciado consultarEnunciado(String idEnunciado);
 
     public void consultarConvocatoria(String idConvocatoria);
 
     public UnidadDidactica consultarUnidadDidactica(String idUnidadDidactica);
+    
+    public boolean verificarExistenciaUnidadDidactica(int idUnidadDidactica);
+
+    public boolean verificarExistenciaConvocatoria(String convocatoria);
 
 }
