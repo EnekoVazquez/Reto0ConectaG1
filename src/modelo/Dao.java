@@ -21,7 +21,7 @@ public interface Dao {
 
     public void crearEnunciado(Enunciado EN);
 
-    public Enunciado consultarEnunciado(String idEnunciado);
+    public Enunciado consultarEnunciado(int idEnunciado);
 
     public void consultarConvocatoria(String idConvocatoria);
 
@@ -30,5 +30,7 @@ public interface Dao {
     public boolean verificarExistenciaUnidadDidactica(int idUnidadDidactica);
 
     public boolean verificarExistenciaConvocatoria(String convocatoria);
+    
+   
 
 }

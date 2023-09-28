@@ -131,6 +131,11 @@ public class VistaUsuario {
 
     private static void consultarEnunciado(Controlador controlador) {
         
+        
+        int id = Utilidades.leerInt("Introduceme el id ");
+        controlador.visualizarEnunciado(id);
+     
+        
     }
 
     private static void consultarConvocatoria(Controlador controlador) {

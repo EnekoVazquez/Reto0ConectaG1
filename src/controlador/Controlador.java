@@ -8,6 +8,8 @@ package controlador;
 import clases.ConvocatoriaExamen;
 import clases.Enunciado;
 import clases.UnidadDidactica;
+import java.awt.Desktop;
+import java.io.File;
 import modelo.*;
 import utilidades.Utilidades;
 
@@ -39,8 +41,20 @@ public class Controlador {
         daoFich.consultarConvocatoria(idConvocatoria);
     }
 
-    public void visualizarEnunciado() {
+    public void visualizarEnunciado(int id ) {
 
+        Enunciado en = new Enunciado();
+        daoBD.consultarEnunciado(id);
+        /*
+        en=daoBD.consultarEnunciado(id);
+        try {
+            System.out.println(en.getRuta());
+            File file = new File(en.getRuta());
+            Desktop.getDesktop().open(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+*/
     }
     public boolean verificarExistenciaUnidadDidactica(int idUnidadDidactica){
         

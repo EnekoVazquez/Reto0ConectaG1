@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import clases.ConvocatoriaExamen;
+import clases.Dificultad;
 import clases.Enunciado;
 import clases.UnidadDidactica;
 import java.util.logging.Level;
@@ -32,13 +33,14 @@ public class DaoImplementacionDb implements Dao {
     //Enunciado
     private final String ALTAENUN = "INSERT INTO enunciado(id, descripcion, nivel, disponible,ruta) values (?,?,?,?,?)";
     private final String ALTAUNIEN = "INSERT INTO unidad_enunciado(unidads_id,enunciados_id) values (?,?)";
+    private final String ENUNRUTA = "SELECT * FROM enunciado";
     // Convocatoria
     // private final String ALTACE = "INSERT INTO ConvocatoriaExamen(convocatoria,descripcion,fecha,curso) values (?,?,?,?)";
     private void openConnection() {
 
         try {
             con = DriverManager.getConnection(
-                    "jdbc:mysql://127.0.0.1:3306/examendb?serverTimezone=Europe/Madrid&useSSL=false", "root",
+                    "jdbc:mysql://127.0.0.1:3306/examenbd?serverTimezone=Europe/Madrid&useSSL=false", "root",
                     "abcd*1234");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -189,10 +191,39 @@ public class DaoImplementacionDb implements Dao {
             e.printStackTrace();
         }
     }
+    
+    
 
     @Override
-    public Enunciado consultarEnunciado(String idEnunciado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Enunciado consultarEnunciado(int idEnunciado) {
+       
+        Enunciado enun =new Enunciado();
+        ResultSet rs = null;
+        try {
+            this.openConnection();
+        } catch (Exception e) {
+        }
+        try {
+            stmt= con.prepareStatement(ENUNRUTA);
+            stmt.setInt(1, idEnunciado);
+            
+            rs= stmt.executeQuery();
+            while(rs.next()){
+                enun.setIdEnunciado(idEnunciado);
+                enun.setDescipcion(rs.getString("descripcion"));
+                enun.setDificultad(Dificultad.valueOf(rs.getString("dificultad")));
+                enun.setDisponible(rs.getBoolean("disponiblr"));
+                enun.setRuta(rs.getString("ruta"));
+                
+                enun.toString();
+                
+            }
+        } catch (Exception e) {
+        }
+        
+        
+        
+        return enun;
     }
 
     @Override
@@ -210,4 +241,5 @@ public class DaoImplementacionDb implements Dao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
 }
