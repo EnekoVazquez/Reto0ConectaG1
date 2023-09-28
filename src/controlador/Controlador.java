@@ -33,8 +33,9 @@ public class Controlador {
 
     }
 
-    public void consultarEnunciado() {
-
+    public void consultarEnunciado(int id ) {
+        daoBD.consultarEnunciado(id);
+        
     }
 
     public void consultarConvocatoria(String idConvocatoria) {
@@ -42,19 +43,15 @@ public class Controlador {
     }
 
     public void visualizarEnunciado(int id ) {
-
         Enunciado en = new Enunciado();
-        daoBD.consultarEnunciado(id);
-        /*
-        en=daoBD.consultarEnunciado(id);
+        en=daoBD.visualizarEnunciado(id);
         try {
-            System.out.println(en.getRuta());
             File file = new File(en.getRuta());
             Desktop.getDesktop().open(file);
         } catch (Exception e) {
             e.printStackTrace();
         }
-*/
+
     }
     public boolean verificarExistenciaUnidadDidactica(int idUnidadDidactica){
         

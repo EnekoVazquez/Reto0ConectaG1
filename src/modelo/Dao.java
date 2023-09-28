@@ -8,6 +8,7 @@ package modelo;
 import clases.ConvocatoriaExamen;
 import clases.Enunciado;
 import clases.UnidadDidactica;
+import java.util.List;
 
 /**
  *
@@ -24,6 +25,8 @@ public interface Dao {
     public Enunciado consultarEnunciado(int idEnunciado);
 
     public void consultarConvocatoria(String idConvocatoria);
+    
+    public Enunciado visualizarEnunciado(Integer id );
 
     public UnidadDidactica consultarUnidadDidactica(String idUnidadDidactica);
     

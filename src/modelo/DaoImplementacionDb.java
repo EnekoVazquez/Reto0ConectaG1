@@ -14,6 +14,8 @@ import clases.ConvocatoriaExamen;
 import clases.Dificultad;
 import clases.Enunciado;
 import clases.UnidadDidactica;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +35,9 @@ public class DaoImplementacionDb implements Dao {
     //Enunciado
     private final String ALTAENUN = "INSERT INTO enunciado(id, descripcion, nivel, disponible,ruta) values (?,?,?,?,?)";
     private final String ALTAUNIEN = "INSERT INTO unidad_enunciado(unidads_id,enunciados_id) values (?,?)";
-    private final String ENUNRUTA = "SELECT * FROM enunciado";
+    private final String ENUNRUTA = "SELECT * FROM enunciado where id = ? ";
+ 
+
     // Convocatoria
     // private final String ALTACE = "INSERT INTO ConvocatoriaExamen(convocatoria,descripcion,fecha,curso) values (?,?,?,?)";
     private void openConnection() {
@@ -121,7 +125,7 @@ public class DaoImplementacionDb implements Dao {
          */
     }
 
-    public boolean verificarExistenciaUnidadDidactica(int idUnidadDidactica){
+    public boolean verificarExistenciaUnidadDidactica(int idUnidadDidactica) {
         ResultSet rs = null;
         boolean existe = false;
 
@@ -133,7 +137,6 @@ public class DaoImplementacionDb implements Dao {
             stmt = con.prepareStatement(EXISTEID);
 
             // Preparar la declaración con el parámetro de la ID
-       
             stmt.setInt(1, idUnidadDidactica);
 
             // Ejecutar la consulta y obtener el resultado
@@ -160,7 +163,7 @@ public class DaoImplementacionDb implements Dao {
 
     @Override
     public void crearEnunciado(Enunciado EN) {
-       this.openConnection();
+        this.openConnection();
 
         try {
 
@@ -170,14 +173,13 @@ public class DaoImplementacionDb implements Dao {
             stmt.setString(3, EN.getDificultad().toString());
             stmt.setBoolean(4, EN.isDisponible());
             stmt.setString(5, EN.getRuta());
-          
-            
+
             stmt.executeUpdate();
-            
+
             stmt = con.prepareStatement(ALTAUNIEN);
             stmt.setInt(1, 1);
             stmt.setInt(2, EN.getIdEnunciado());
-            
+
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -191,38 +193,43 @@ public class DaoImplementacionDb implements Dao {
             e.printStackTrace();
         }
     }
-    
-    
 
     @Override
     public Enunciado consultarEnunciado(int idEnunciado) {
-       
-        Enunciado enun =new Enunciado();
+
+        Enunciado enun = new Enunciado();
+
         ResultSet rs = null;
         try {
             this.openConnection();
         } catch (Exception e) {
         }
         try {
-            stmt= con.prepareStatement(ENUNRUTA);
+            stmt = con.prepareStatement(ENUNRUTA);
             stmt.setInt(1, idEnunciado);
-            
-            rs= stmt.executeQuery();
-            while(rs.next()){
-                enun.setIdEnunciado(idEnunciado);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+
+                enun.setIdEnunciado(rs.getInt("id"));
                 enun.setDescipcion(rs.getString("descripcion"));
-                enun.setDificultad(Dificultad.valueOf(rs.getString("dificultad")));
-                enun.setDisponible(rs.getBoolean("disponiblr"));
+
+                enun.setDificultad(Dificultad.valueOf(rs.getString("nivel")));
+
+                enun.setDisponible(rs.getBoolean("disponible"));
                 enun.setRuta(rs.getString("ruta"));
-                
-                enun.toString();
-                
+                System.out.println(enun.toString());
+
             }
         } catch (Exception e) {
+
         }
-        
-        
-        
+        try {
+            closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoImplementacionDb.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return enun;
     }
 
@@ -241,5 +248,48 @@ public class DaoImplementacionDb implements Dao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
+    @Override
+    public Enunciado visualizarEnunciado(Integer id) {
+
+        Enunciado enun = new Enunciado();
+
+        ResultSet rs = null;
+        try {
+            this.openConnection();
+        } catch (Exception e) {
+        }
+        List<Enunciado> listEnum= new ArrayList<>();
+        try {
+            stmt = con.prepareStatement(ENUNRUTA);
+            stmt.setInt(1, id);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+
+                enun.setIdEnunciado(rs.getInt("id"));
+                enun.setDescipcion(rs.getString("descripcion"));
+
+                enun.setDificultad(Dificultad.valueOf(rs.getString("nivel")));
+
+                enun.setDisponible(rs.getBoolean("disponible"));
+                enun.setRuta(rs.getString("ruta"));
+                
+                listEnum.add(enun);
+                System.out.println(enun.toString());
+
+            }
+        } catch (Exception e) {
+
+        }
+        try {
+            closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoImplementacionDb.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return enun;
+
+       
+
+    }
+
 }

@@ -32,7 +32,6 @@ public class VistaUsuario {
             System.out.println("1.-Crear unidad didactica");
             System.out.println("2.-Crear una convocatoria");
             System.out.println("3.-Crear un enunciado");
-            System.out.println("4.-Consultar una unidad didactica");
             System.out.println("5.-Consultar un Enunciado");
             System.out.println("6.-Consultar una convocatoria");
             System.out.println("7.-Visualizar un Enunciado");
@@ -50,7 +49,7 @@ public class VistaUsuario {
                     crearEnunciado(controlador);
                     break;
                 case 4:
-                    consultarUnidadDidactica(controlador);
+                    
                     break;
                 case 5:
                     consultarEnunciado(controlador);
@@ -89,19 +88,14 @@ public class VistaUsuario {
     }
 
     private static void crearConvocatoria(Controlador controlador) {
-        String convocatoria = Utilidades.introducirCadena("Dime la convocatoria que no exista");
 
-        if (controlador.verificarExistenciaConvocatoria(convocatoria)) {
-            System.out.println("La convocatoria ya existe en la base de datos.");
-        } else {
+        ConvocatoriaExamen CE = new ConvocatoriaExamen();
+        CE.setConvocatoria(Utilidades.introducirCadena("Introduce la convocatoria del examen "));
+        CE.setDescripcion(Utilidades.introducirCadena("Dime la descripcion"));
+        CE.setCurso(Utilidades.introducirCadena("Dime el curso"));
+        CE.setFecha(Utilidades.pidoFechaDMA("Dime la fecha de la convocatoria"));
+        controlador.crearConvocatoria(CE);
 
-            ConvocatoriaExamen CE = new ConvocatoriaExamen();
-            CE.setConvocatoria(Utilidades.introducirCadena("Introduce la convocatoria del examen "));
-            CE.setDescripcion(Utilidades.introducirCadena("Dime la descripcion"));
-            CE.setCurso(Utilidades.introducirCadena("Dime el curso"));
-            CE.setFecha(Utilidades.pidoFechaDMA("Dime la fecha de la convocatoria"));
-            controlador.crearConvocatoria(CE);
-        }
     }
 
     private static void crearEnunciado(Controlador controlador) {
@@ -114,6 +108,7 @@ public class VistaUsuario {
         dificultad = Utilidades.introducirCadena("Introduce la dificultad del enunciado ALTA,BAJA,MEDIA");
         if (dificultad.equalsIgnoreCase(Dificultad.ALTA.toString())) {
             EN.setDificultad(Dificultad.ALTA);
+            
         } else if (dificultad.equalsIgnoreCase(Dificultad.MEDIA.toString())) {
             EN.setDificultad(Dificultad.MEDIA);
         } else {
@@ -121,20 +116,17 @@ public class VistaUsuario {
         }
         EN.setDisponible(Utilidades.leerRespuesta("Esta disponible?"));
         EN.setRuta(Utilidades.introducirCadena("Donde quieres guardar el enunciado"));
-        EN.insertarUnidades();
+        //EN.insertarUnidades();
 
         controlador.crearEnunciado(EN);
     }
-    private static void consultarUnidadDidactica(Controlador controlador) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
+   
 
     private static void consultarEnunciado(Controlador controlador) {
-        
-        
+
         int id = Utilidades.leerInt("Introduceme el id ");
-        controlador.visualizarEnunciado(id);
-     
+        controlador.consultarEnunciado(id);
         
     }
 
@@ -146,7 +138,9 @@ public class VistaUsuario {
     }
 
     private static void visualizarEnunciado(Controlador controlador) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       int id = Utilidades.leerInt("introduce  el id ");
+       controlador.visualizarEnunciado(id);
+        
     }
 
 }

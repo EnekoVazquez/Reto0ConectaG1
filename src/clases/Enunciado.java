@@ -76,7 +76,7 @@ public class Enunciado {
 
     @Override
     public String toString() {
-        return "Enunciado{" + "idEnunciado=" + idEnunciado + ", descipcion=" + descipcion + ", dificultad=" + dificultad + ", disponible=" + disponible + ", ruta=" + ruta + ", unidades=" + unidades + '}';
+        return "Enunciado{" + "idEnunciado=" + idEnunciado + ", descipcion=" + descipcion + ", dificultad=" + dificultad + ", disponible=" + disponible + ", ruta=" + ruta  + '}';
     }
 
     
