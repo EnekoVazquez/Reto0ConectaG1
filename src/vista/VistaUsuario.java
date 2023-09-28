@@ -1,7 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * La clase VistaUsuario representa la interfaz de usuario para interactuar con el sistema.
+ * Proporciona un menú de opciones para realizar diversas acciones como crear unidades didácticas,
+ * convocatorias de exámenes, enunciados, consultar enunciados y convocatorias, visualizar enunciados y salir de la aplicación.
+ * 
+ * Esta clase utiliza el controlador para llevar a cabo las operaciones de creación y consulta.
+ * 
+ * @author josu, eneko, egoitz
+ * @version 1.0
  */
 package vista;
 
@@ -16,15 +21,16 @@ import java.time.LocalDate;
 import modelo.DaoImplementacionDb;
 import utilidades.Utilidades;
 
-/**
- *
- * @author 2dam
- */
 public class VistaUsuario {
 
     private UnidadDidactica UD;
     private ConvocatoriaExamen CE;
 
+    /**
+     * Muestra un menú interactivo para que el usuario realice diferentes acciones.
+     * 
+     * @param controlador El controlador que gestionará las acciones del usuario.
+     */
     public static void menu(Controlador controlador) {
         int opc;
 
@@ -60,7 +66,7 @@ public class VistaUsuario {
                 case 7:
                     visualizarEnunciado(controlador);
                 case 8:
-                    System.out.println("Salir de aqui");
+                    System.out.println("Salir de aquí");
                     break;
                 default:
                     break;
@@ -120,8 +126,6 @@ public class VistaUsuario {
 
         controlador.crearEnunciado(EN);
     }
-
-   
 
     private static void consultarEnunciado(Controlador controlador) {
 

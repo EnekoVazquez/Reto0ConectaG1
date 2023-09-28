@@ -7,7 +7,7 @@ package clases;
 
 /**
  *
- * @author 2dam
+ * @author Eneko
  */
 public enum Dificultad {
 

@@ -11,7 +11,7 @@ import utilidades.Utilidades;
 
 /**
  *
- * @author 2dam
+ * @author Egoitz
  */
 public class ConvocatoriaExamen implements Serializable {
 

@@ -7,7 +7,7 @@ package clases;
 import utilidades.Utilidades;
 /**
  *
- * @author 2dam
+ * @author Eneko
  */
 public class UnidadDidactica {
     

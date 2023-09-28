@@ -10,7 +10,7 @@ import utilidades.Utilidades;
 
 /**
  *
- * @author 2dam
+ * @author Josu
  */
 public class Enunciado {
     

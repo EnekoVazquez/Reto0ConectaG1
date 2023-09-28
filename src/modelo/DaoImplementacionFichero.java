@@ -23,7 +23,7 @@ import utilidades.Utilidades;
 
 /**
  *
- * @author 2dam
+ * @author josu,eneko,egoitz
  */
 public class DaoImplementacionFichero implements Dao {
 

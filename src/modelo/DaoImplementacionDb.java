@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author 2dam
+ * @author josu,egoitz,enekoo
  */
 public class DaoImplementacionDb implements Dao {
 
