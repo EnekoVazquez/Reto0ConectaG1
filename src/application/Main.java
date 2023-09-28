@@ -11,11 +11,12 @@ import vista.VistaUsuario;
 
 /**
  *
- * @author 2dam
+ * @author Josu
  */
 public class Main {
 
     /**
+     * esta clase sirve para ejecutar la aplicacion
      * @param args the command line arguments
      */
     public static void main(String[] args) {

@@ -11,7 +11,7 @@ import utilidades.Utilidades;
 
 /**
  *
- * @author 2dam
+ * @author Egoitz
  */
 public class ConvocatoriaExamen implements Serializable {
 
@@ -19,6 +19,7 @@ public class ConvocatoriaExamen implements Serializable {
     private String descripcion;
     private LocalDate fecha;
     private String curso;
+    private int enunciado;
 
     public String getConvocatoria() {
         return convocatoria;
@@ -52,11 +53,21 @@ public class ConvocatoriaExamen implements Serializable {
         this.curso = curso;
     }
 
-    public ConvocatoriaExamen(String convocatoria, String descripcion, LocalDate fecha, String curso) {
+    public int getEnunciado() {
+        return enunciado;
+    }
+
+    public void setEnunciado(int enunciado) {
+        this.enunciado = enunciado;
+    }
+    
+
+    public ConvocatoriaExamen(String convocatoria, String descripcion, LocalDate fecha, String curso, int enunciado) {
         this.convocatoria = convocatoria;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.curso = curso;
+        this.enunciado = enunciado;
     }
 
     public ConvocatoriaExamen() {

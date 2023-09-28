@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utilidades.MiObjectOutputStream;
@@ -22,7 +23,7 @@ import utilidades.Utilidades;
 
 /**
  *
- * @author 2dam
+ * @author josu,eneko,egoitz
  */
 public class DaoImplementacionFichero implements Dao {
 
@@ -60,13 +61,13 @@ public class DaoImplementacionFichero implements Dao {
     }
 
     @Override
-    public void crearEnunciado() {
+    public void crearEnunciado(Enunciado EN) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 //vacias
 
     @Override
-    public Enunciado consultarEnunciado(String idEnunciado) {
+    public Enunciado consultarEnunciado(int idEnunciado) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -77,24 +78,22 @@ public class DaoImplementacionFichero implements Dao {
         ObjectInputStream ois = null;
         ConvocatoriaExamen datos;
         int rendimiento;
-        
+
         if (fich.exists()) {
-            rendimiento=Utilidades.calculoFichero(fich);
+            rendimiento = Utilidades.calculoFichero(fich);
             datos = new ConvocatoriaExamen();
             try {
                 fis = new FileInputStream(fich);
                 ois = new ObjectInputStream(fis);
-                
-                for (int i = 0; i < rendimiento; i++) {
-                      if (idConvocatoria.equalsIgnoreCase(datos.getConvocatoria())) {
-                        
-                    }
-                    datos = (ConvocatoriaExamen) ois.readObject();
-                    System.out.println(datos.toString());
-                }
-                  
 
-                
+                for (int i = 0; i < rendimiento; i++) {
+                    datos = (ConvocatoriaExamen) ois.readObject();
+                    if (idConvocatoria.equalsIgnoreCase(datos.getConvocatoria())) {
+                        System.out.println(datos.toString());
+                    }
+
+                }
+
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -114,12 +113,51 @@ public class DaoImplementacionFichero implements Dao {
             }
 
         }
-    
 
     }
 
     @Override
     public UnidadDidactica consultarUnidadDidactica(String idUnidadDidactica) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean verificarExistenciaUnidadDidactica(int idUnidadDidactica) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean verificarExistenciaConvocatoria(String convocatoria) {
+        boolean existe = false;
+        ConvocatoriaExamen conv;
+        ObjectInputStream ois = null;
+        int comprobar = Utilidades.calculoFichero(fich);
+        try {
+            ois = new ObjectInputStream(new FileInputStream(fich));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DaoImplementacionFichero.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DaoImplementacionFichero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (int i = 0; i < comprobar; i++) {
+            try {
+                conv = (ConvocatoriaExamen) ois.readObject();
+                if (convocatoria.equalsIgnoreCase(conv.getConvocatoria())) {
+                    existe = true;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(DaoImplementacionFichero.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DaoImplementacionFichero.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return existe;
+
+    }
+
+    @Override
+    public Enunciado visualizarEnunciado(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

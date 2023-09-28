@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clases;
+package excepciones;
 
 /**
  *
- * @author Eneko
+ * @author 2dam
  */
-public enum Dificultad {
-
-    ALTA,
-    MEDIA,
-    BAJA
-
+public class DatabaseNoOperativeException extends Exception{
+    
+     public DatabaseNoOperativeException (String message){
+        super (message);
+    }
 }
